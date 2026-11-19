@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ffffff">
+<title>Checkout | Autosphere</title>
+<style>
+:root{--ink:#111722;--blue:#1764dc;--red:#df3441;--muted:#697383;--line:#e2e7ef}*{box-sizing:border-box}body{margin:0;background:#fff;color:var(--ink);font-family:Manrope,Inter,Arial,sans-serif}a{color:inherit;text-decoration:none}button,input,textarea{font:inherit}
+header{height:76px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(5vw,20px);animation:drop .4s ease both}header img{width:180px;height:auto;object-fit:contain}.back{color:var(--blue);font-weight:800;font-size:14px;transition:transform .2s}.back:hover{transform:translateX(-3px)}
+main{width:min(1050px,90%);margin:56px auto 90px}.eyebrow{text-transform:uppercase;color:var(--blue);font-size:11px;letter-spacing:.16em;font-weight:800}h1{font-size:clamp(38px,6vw,60px);letter-spacing:-.06em;margin:10px 0 36px;animation:rise .55s .05s both}.layout{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:25px;align-items:start}.panel{border:1px solid var(--line);border-radius:17px;padding:25px;background:#fff;box-shadow:0 12px 34px #121e2b09;animation:rise .58s .12s both}.panel h2{font-size:21px;margin:0 0 20px;letter-spacing:-.035em}form{display:grid;gap:16px}label{display:grid;gap:7px;font-size:13px;font-weight:700}input,textarea{width:100%;border:1px solid #d8dee8;border-radius:9px;padding:13px 14px;outline:none;transition:border-color .2s,box-shadow .2s}input:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px #1764dc15}textarea{resize:vertical;min-height:95px}.submit{border:0;border-radius:10px;background:var(--blue);color:#fff;min-height:52px;padding:14px 18px;font-weight:800;cursor:pointer;box-shadow:0 8px 18px #1764dc2b;transition:transform .2s,background .2s,box-shadow .2s}.submit:hover{background:#0c50bd;transform:translateY(-2px);box-shadow:0 12px 22px #1764dc3b}.submit:disabled{opacity:.5;cursor:not-allowed;transform:none;box-shadow:none}.note{color:var(--muted);font-size:12px;line-height:1.6;margin:14px 0 0}.order-items{display:grid;gap:14px}.line{display:flex;justify-content:space-between;gap:16px;padding-bottom:13px;border-bottom:1px solid #edf0f4;font-size:13px;animation:rise .35s both}.line strong{white-space:nowrap}.name{font-weight:700}.car{display:block;color:var(--muted);font-size:11px;margin-top:4px}.total{display:flex;justify-content:space-between;font-weight:800;margin-top:20px;padding-top:14px;border-top:1px solid var(--line);font-size:17px}.empty{padding:18px;border-radius:10px;background:#f6f8fb;color:var(--muted);font-size:14px;line-height:1.6}.whatsapp{color:#14894c}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}@keyframes drop{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
+@media(max-width:760px){main{margin-top:38px}.layout{grid-template-columns:1fr}.panel{padding:20px}header img{width:150px}}
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header><a href="index.html" aria-label="Autosphere home"><img src="assets/logo.webp" alt="AUTOSPHERE"></a><a class="back" href="index.html">← Continue shopping</a></header>
+<main>
+<div class="eyebrow">Autosphere parts</div>
+<h1>Checkout</h1>
+<div class="layout">
+<section class="panel">
+<h2>Delivery details</h2>
+<form id="orderForm">
+<label>Full name<input name="name" autocomplete="name" required placeholder="Your name"></label>
+<label>Phone number<input name="phone" type="tel" autocomplete="tel" required placeholder="+20"></label>
+<label>Delivery address<textarea name="address" autocomplete="street-address" required placeholder="City, street, building and apartment"></textarea></label>
+<button id="submit" class="submit" type="submit">Send order via WhatsApp</button>
+</form>
+<p class="note">Your order details open in WhatsApp so our team can confirm availability and delivery.</p>
+</section>
+<aside class="panel">
+<h2>Your order</h2>
+<div id="items" class="order-items"></div>
+<div class="total"><span>Subtotal</span><span id="total">0 EGP</span></div>
+<p class="note">Delivery fees are confirmed with our team.</p>
+</aside>
+</div>
+</main>
+<script>
+const key='autosphere-cart';let basket=[];try{basket=JSON.parse(localStorage.getItem(key)||'[]')}catch{basket=[]}
+const items=document.querySelector('#items'),total=document.querySelector('#total'),submit=document.querySelector('#submit');
+if(!Array.isArray(basket))basket=[];
+if(!basket.length){items.innerHTML='<div class="empty">Your cart is empty. <a class="whatsapp" href="index.html#products">Browse parts</a> to add an item.</div>';submit.disabled=true}
+else{for(const item of basket){const row=document.createElement('div');row.className='line';const label=document.createElement('span');label.className='name';label.textContent=item.name;const car=document.createElement('span');car.className='car';car.textContent=item.car||'';label.append(car);const price=document.createElement('strong');price.textContent=Number(item.price).toLocaleString('en')+' EGP';row.append(label,price);items.append(row)}total.textContent=basket.reduce((sum,item)=>sum+Number(item.price||0),0).toLocaleString('en')+' EGP'}
+document.querySelector('#orderForm').addEventListener('submit',event=>{event.preventDefault();if(!basket.length)return;const data=new FormData(event.currentTarget);const lines=basket.map(item=>'- '+item.name+' ('+item.car+'): '+Number(item.price).toLocaleString('en')+' EGP');const message=['Autosphere order request',...lines,'Subtotal: '+basket.reduce((sum,item)=>sum+Number(item.price||0),0).toLocaleString('en')+' EGP','Name: '+data.get('name'),'Phone: '+data.get('phone'),'Address: '+data.get('address')].join('\n');window.open('https://wa.me/201069040109?text='+encodeURIComponent(message),'_blank','noopener,noreferrer')});
+</script>
+</body>
+</html>
