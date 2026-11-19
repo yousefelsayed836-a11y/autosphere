@@ -1,6 +1,5 @@
 # Autosphere
 
-واجهة عربية تجريبية لمتجر قطع غيار السيارات. افتح `index.html` في المتصفح. المنتجات والأسعار والسلة للعرض فقط ولا يوجد خادم أو دفع. يلزم التأكد من توافق القطع مع السيارة.
+A front-end demo car parts store. Open `index.html` in a browser or serve the folder with a static web server. Products, prices, and cart are illustrative; there is no checkout or backend. Confirm fitment before purchasing.
 
-صور السيارات معاينات نماذج ثلاثية الأبعاد من Sketchfab: [Nissan Versa 2015 by Ddiaz Design](https://sketchfab.com/models/18af87c9490e4acb80a46b70ca8d86ed) كشكل مقارب لصني 2020، و[BMW F30 by SuperScriptDEV2](https://sketchfab.com/models/3426109189ae47c8a61f0214ee3acd33)، و[Mitsubishi Lancer MK8 by Merc_TV](https://sketchfab.com/models/8d8480d71b094f609924275bdc3e5e6c). الصور خارجية وتخضع لحقوق أصحابها.
-
+The interactive vehicle models are embedded from Sketchfab: [2015 Nissan Versa Sedan by Ddiaz Design](https://sketchfab.com/models/18af87c9490e4acb80a46b70ca8d86ed), used as an approximate Sunny reference; [BMW F30 by SuperScriptDEV2](https://sketchfab.com/models/3426109189ae47c8a61f0214ee3acd33); [Mitsubishi Lancer GT by konige3](https://sketchfab.com/models/aad96b03315340dfa72a3078f4e8ddfc). The viewers require internet access. Transparency is requested where supported by the model owner's Sketchfab plan. Model availability and exact specifications remain controlled by their respective creators. Hero artwork was generated for this demo.
